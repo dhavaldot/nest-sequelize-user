@@ -4,10 +4,18 @@ import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
 import { UserModule } from './user/user.module';
 import { JobModule } from './job/job.module';
-import { JobProviders } from './job/job.provider';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
-  imports: [DatabaseModule, UserModule, JobModule],
+  imports: [
+    DatabaseModule,
+    GraphQLModule.forRoot({
+      autoSchemaFile: 'schema.ggl',
+      typePaths: ['./**/*.graphql'],
+    }),
+    UserModule,
+    JobModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
