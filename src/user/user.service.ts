@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { User } from '../Entities';
+import { Job, User } from '../Entities';
 import { UserModel } from '../Models';
 import { Constant } from '../constants';
 

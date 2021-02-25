@@ -9,14 +9,14 @@ import {
   DeletedAt,
   ForeignKey,
   HasMany,
+  BelongsTo,
+  HasOne,
 } from 'sequelize-typescript';
 import { User } from '.';
 import { JobModel } from '../Models';
 
-@Table({
-  tableName: 'Job',
-})
-export default class Job extends Model<JobModel> {
+@Table
+export default class Job extends Model {
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
@@ -37,10 +37,20 @@ export default class Job extends Model<JobModel> {
   })
   salary: number;
 
-  // @HasMany(() => User, 'id')
+  // @ForeignKey(() => User)
+  @Column
+  Uid: number;
+  /* 
+  @HasOne(() => User)
+  user: User;
+ */
+  @BelongsTo(() => User, 'id')
+  user: User;
+
+  /* @ForeignKey(() => User)
   @Column({
     type: DataType.SMALLINT,
     allowNull: false,
   })
-  Uid: number;
+  Uid: number; */
 }

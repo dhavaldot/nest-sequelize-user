@@ -8,11 +8,16 @@ import {
   UpdatedAt,
   DeletedAt,
   PrimaryKey,
+  BelongsTo,
+  HasMany,
+  ForeignKey,
+  HasOne,
 } from 'sequelize-typescript';
+import { Job } from '.';
 import { UserModel } from '../Models';
 
 @Table
-export default class User extends Model<UserModel> {
+export default class User extends Model {
   @PrimaryKey
   @Column({
     type: DataType.SMALLINT,
@@ -39,4 +44,7 @@ export default class User extends Model<UserModel> {
     allowNull: false,
   })
   email: string;
+
+  /*
+   */
 }

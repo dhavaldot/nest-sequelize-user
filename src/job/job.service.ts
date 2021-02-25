@@ -1,6 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Job } from '../Entities';
-import { JobModel } from '../Models';
+import { Job, User } from '../Entities';
 import { Constant } from '../constants';
 
 @Injectable()
@@ -15,7 +14,9 @@ export class JobService {
   }
 
   async create(jobData) {
-    return this.jobRepository.create<Job>(jobData);
+    const data = await this.jobRepository.create<Job>(jobData);
+    console.log('data', data);
+    return data;
   }
 
   async checkJob(id) {
@@ -30,5 +31,13 @@ export class JobService {
 
   async deleteJob(id) {
     return this.jobRepository.destroy(id);
+  }
+
+  async findWithUser() {
+    let id = 1;
+    let query = await this.jobRepository.sequelize.query(
+      `select * from "Jobs" j inner join "Users" u on u.id = j."Uid" where u.id = ${id}`,
+    );
+    return query[0];
   }
 }

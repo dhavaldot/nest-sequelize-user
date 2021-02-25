@@ -27,12 +27,12 @@ export class JobController {
       if (!op.isNewRecord)
         return res.status(200).send({
           success: true,
-          message: 'User added successfully',
+          message: 'Job details added successfully',
         });
     } catch (err) {
       res.status(400).send({
-        success: true,
-        message: err.message,
+        success: false,
+        message: err,
       });
     }
   }
@@ -45,13 +45,13 @@ export class JobController {
       if (!id) throw new Error('Please pass id');
 
       const checkJob = await this.jobPostgresService.checkJob(id);
-      if (!checkJob) throw new Error('User not exist with this id');
+      if (!checkJob) throw new Error('Job details not exist with this id');
 
       const update = await this.jobPostgresService.updateJob(data);
       if (update.length > 0)
         return res.status(200).send({
           success: true,
-          message: 'User added successfully',
+          message: 'Job details updated successfully',
         });
     } catch (err) {
       res.status(400).send({
@@ -67,12 +67,29 @@ export class JobController {
       if (!id) throw new Error('Please pass id');
 
       const checkJob = await this.jobPostgresService.checkJob(id);
-      if (!checkJob) throw new Error('User not exist with this id');
+      if (!checkJob) throw new Error('Job details not exist with this id');
 
       await this.jobPostgresService.deleteJob(id);
       return res.status(200).send({
         success: true,
-        message: 'User deleted successfully',
+        message: 'Job details deleted successfully',
+      });
+    } catch (err) {
+      res.status(400).send({
+        success: false,
+        message: err.message,
+      });
+    }
+  }
+
+  @Get('FindWithUser')
+  async findWithUser(@Res() res) {
+    try {
+      const data = await this.jobPostgresService.findWithUser();
+      if (data.length <= 0) throw new Error('Data not found');
+      return res.status(200).send({
+        success: true,
+        data: data,
       });
     } catch (err) {
       res.status(400).send({
