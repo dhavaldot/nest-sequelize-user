@@ -1,4 +1,4 @@
-import { Field, ID, ObjectType } from '@nestjs/graphql';
+import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
 import { table } from 'console';
 import {
   Table,
@@ -19,6 +19,7 @@ import { UserModel } from '../Models';
 
 @Table
 @ObjectType()
+@InputType('addUser')
 export default class User extends Model {
   @PrimaryKey
   @Column({
@@ -38,7 +39,7 @@ export default class User extends Model {
   name: string;
 
   @Column({
-    type: DataType.DECIMAL,
+    type: DataType.INTEGER,
     allowNull: false,
   })
   @Field()

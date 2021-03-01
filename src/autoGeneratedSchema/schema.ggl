@@ -9,6 +9,17 @@ type User {
   email: String!
 }
 
+input addUser {
+  id: ID = null
+  name: String!
+  age: Float!
+  email: String!
+}
+
 type Query {
   getAll: [User!]!
+}
+
+type Mutation {
+  createUser: User!
 }
