@@ -12,14 +12,3 @@ type Query {
 type Mutation {
   createUser(name: String, age: Int, email: String): User
 }
-
-input ProfileInput {
-  id: ID!
-  firstName: String!
-  lastName: String!
-  email: String!
-  username: String!
-  img: String!
-  skills: [SkillInput!]
-  projects: [Int!]
-}
