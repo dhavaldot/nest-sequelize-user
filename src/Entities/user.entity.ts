@@ -1,5 +1,4 @@
 import { Field, ID, InputType, ObjectType } from '@nestjs/graphql';
-import { table } from 'console';
 import {
   Table,
   Column,
@@ -14,9 +13,6 @@ import {
   ForeignKey,
   HasOne,
 } from 'sequelize-typescript';
-import { Job } from '.';
-import { UserModel } from '../Models';
-
 @Table
 @ObjectType()
 @InputType('addUser')
